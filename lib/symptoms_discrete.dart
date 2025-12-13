@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:pcos_app/symptoms_binary.dart';
 import 'package:pcos_app/likelihood_model.dart';
+import '../services/pcos_data_service.dart';
 class SymptomsDiscrete extends StatefulWidget {
   final List<int> bin;
   const SymptomsDiscrete({super.key,required this.bin});
@@ -63,7 +64,13 @@ Future<void> _getSymptomDiscrete() async {
   final xAll = Float32List.fromList(all);
 
   final prob = await PcosStack.instance.predict(xAll);
-
+  await PcosDataService.uploadEntry(
+    age: age,
+    weight: weight,
+    cycle: cycle,
+    bin: widget.bin,   // passed from previous screen
+    probability: prob,
+  );
   if (!mounted) return; // <- important
   await showDialog(
     context: context,
@@ -102,9 +109,9 @@ Future<void> _getSymptomDiscrete() async {
               ),
               const SizedBox(height: 12),
               _LabeledField(
-                label: 'Menstrual cycle length (days)',
+                label: 'Count of Flow Days',
                 controller: _cycleController,
-                hint: 'Cycle length in days',
+                hint: 'Eg: 5',
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 54),

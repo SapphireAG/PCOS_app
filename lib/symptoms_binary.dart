@@ -66,7 +66,7 @@ class _SymptomInputPageState extends State<SymptomInputPage>{
     Symptom("Skin Darkening"),
     Symptom("Hair Growth"),
     Symptom("Weight Gain"),
-    Symptom("Irregular Menstural Cycle"),
+    Symptom("Irregular Cycle"),
     Symptom("Frequent FastFood intake"),
     Symptom("Pimples(Acne)"),
     Symptom("Hair Loss"),

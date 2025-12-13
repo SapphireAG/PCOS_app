@@ -1,13 +1,22 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pcos_app/gradient_background.dart';
 import 'package:pcos_app/home.dart';
 import 'package:pcos_app/landing_page.dart';
 import 'package:pcos_app/symptoms_binary.dart';
 import 'package:pcos_app/symptoms_discrete.dart';
 import 'package:pcos_app/likelihood_model.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //await Hive.initFlutter();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   final initFuture = PcosStack.instance.init(); // create once
   runApp(MyApp(initFuture: initFuture));
 }

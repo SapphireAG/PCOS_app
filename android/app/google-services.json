@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "371152384700",
+    "project_id": "pcos-detector-ecb72",
+    "storage_bucket": "pcos-detector-ecb72.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371152384700:android:5695d4d064e0d8648296b9",
+        "android_client_info": {
+          "package_name": "com.example.pcos_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAv8xnYZP53mZ7ryKuzhM1pqtrRHeP-7gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

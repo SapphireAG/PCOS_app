@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pcos_app/landing_page.dart';
-import 'package:pcos_app/symptoms_binary.dart';
+
 
 class AppColors {
   // gradient
@@ -43,7 +42,14 @@ class HomeWidget extends StatelessWidget{
       ),
       const SizedBox(height:10),
         OutlinedButton.icon(onPressed: (){Navigator.pushNamed(context,
-        '/landing_page');}, label: Text("Get Started", style: TextStyle(color: Colors.white, fontSize: 15),),icon: Icon(Icons.play_arrow,color: Colors.white,),style: OutlinedButton.styleFrom(backgroundColor: AppColors.indigo,foregroundColor: Colors.white) ),
+        '/landing_page');}, label: Text("Get Started", 
+        style: TextStyle(color: Colors.white, fontSize: 15),
+        ),
+        icon: Icon(Icons.play_arrow,color: Colors.white,),
+        style: OutlinedButton.styleFrom(
+          backgroundColor: AppColors.indigo,
+          foregroundColor: Colors.white) 
+          ),
         const SizedBox(height: 15,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
