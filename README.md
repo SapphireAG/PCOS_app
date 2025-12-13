@@ -1,17 +1,3 @@
-# pcos_app
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 # PCOS_app
+Polycystic Ovary Syndrome(PCOS) is one of the most common endocrine disorders in reproductive-age women, linked to infertility, obesity, insulin resistance and cardiovascular risks. 
+Conventional diagnostics depend on biochemical tests and ovarian imaging, which, while reliable, are invasive, costly, and often inaccessible in low-resource settings. In this paper we explore various studies that discuss the non invasive methods of diagnosis including the use of ML/DL and AI, Ultrasonography, Hormonal markers, Clinical and Biochemical tests, Insulin Resistance and Obesity in the detection and diagnosis of Polycystic Ovary Syndrome(PCOS). The early detection and diagnosis of PCOS is of utmost importance; 6 to 13% of women in the reproductive age are affected by PCOS, according to a statistic provided by the World Health Organization. This highlights the need for non-invasive, affordable, and widely applicable alternatives
