@@ -9,6 +9,8 @@ class PcosDataService {
     required double cycle,
     required List<int> bin,
     required double probability,
+    required String? priorDiagnosis,
+    required String? agreeWithResult
   }) async {
     final hashedUser = await getHashedUserId();
 
@@ -25,6 +27,8 @@ class PcosDataService {
       hairLoss: bin[6],
       predictionProb: probability,
       hashedUser: hashedUser,
+      priorDiagnosis: priorDiagnosis,
+      agreeWithResult: agreeWithResult
     );
 
     await FirebaseFirestore.instance

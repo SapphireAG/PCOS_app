@@ -14,6 +14,8 @@ class PcosEntry {
 
   final double predictionProb;
   final String hashedUser;
+  final String? priorDiagnosis;
+  final String? agreeWithResult;
 
   PcosEntry({
     required this.age,
@@ -28,6 +30,8 @@ class PcosEntry {
     required this.hairLoss,
     required this.predictionProb,
     required this.hashedUser,
+    required this.priorDiagnosis,
+    required this.agreeWithResult
   });
 
   Map<String, dynamic> toJson() {
@@ -48,6 +52,8 @@ class PcosEntry {
       "hashed_user": hashedUser,
       "timestamp": FieldValue.serverTimestamp(),
       "consent": true,
+      "agree_with_result": agreeWithResult,
+      "prior_diagnosis": priorDiagnosis,
     };
   }
 }

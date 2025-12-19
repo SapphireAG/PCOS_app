@@ -20,6 +20,15 @@ const contStd = <double>[
   5.406002456869452,
   1.4906406771016456,
 ]; 
+class ResultFeedback {
+  final String agreeWithResult;
+  final String priorDiagnosis;
+
+  ResultFeedback({
+    required this.agreeWithResult,
+    required this.priorDiagnosis,
+  });
+}
 
 class _SymptomsDiscreteState extends State<SymptomsDiscrete> {
   final _ageController = TextEditingController();
@@ -64,13 +73,7 @@ Future<void> _getSymptomDiscrete() async {
   final xAll = Float32List.fromList(all);
 
   final prob = await PcosStack.instance.predict(xAll);
-  await PcosDataService.uploadEntry(
-    age: age,
-    weight: weight,
-    cycle: cycle,
-    bin: widget.bin,   // passed from previous screen
-    probability: prob,
-  );
+
   if (!mounted) return; // <- important
   await showDialog(
     context: context,
@@ -79,6 +82,119 @@ Future<void> _getSymptomDiscrete() async {
       content: Text('Probability: ${prob.toStringAsFixed(3)}\n${prob >= 0.5 ? 'High risk' : 'Low risk'}'),
       actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))],
     ),
+    
+    
+  );
+  //   await PcosDataService.uploadEntry(
+  //   age: age,
+  //   weight: weight,
+  //   cycle: cycle,
+  //   bin: widget.bin,   // passed from previous screen
+  //   probability: prob,
+  // );
+final feedback = await showDialog<ResultFeedback>(
+  context: context,
+  builder: (dialogContext) {
+    String? agreeValue;        // yes / no / dont_know
+    String? priorDiagValue;    // yes / no / dont_know
+
+    const options = ['yes', 'no', 'dont_know'];
+
+    String labelFor(String value) {
+      switch (value) {
+        case 'yes':
+          return 'Yes';
+        case 'no':
+          return 'No';
+        case 'dont_know':
+          return "I don't know";
+        default:
+          return value;
+      }
+    }
+
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return AlertDialog(
+          title: const Text('Additional Questions'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  '1. Do you agree with the results?',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                ...options.map(
+                  (value) => RadioListTile<String>(
+                    title: Text(labelFor(value)),
+                    value: value,
+                    groupValue: agreeValue,
+                    onChanged: (val) {
+                      setState(() => agreeValue = val);
+                    },
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  '2. Do you have a prior confirmed diagnosis?',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                ...options.map(
+                  (value) => RadioListTile<String>(
+                    title: Text(labelFor(value)),
+                    value: value,
+                    groupValue: priorDiagValue,
+                    onChanged: (val) {
+                      setState(() => priorDiagValue = val);
+                    },
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext), // cancel/skip
+              child: const Text('Skip'),
+            ),
+            TextButton(
+              onPressed: (agreeValue == null || priorDiagValue == null)
+                  ? null
+                  : () {
+                      Navigator.pop(
+                        dialogContext,
+                        ResultFeedback(
+                          agreeWithResult: agreeValue!,
+                          priorDiagnosis: priorDiagValue!,
+                        ),
+                      );
+                    },
+              child: const Text('Submit'),
+            ),
+          ],
+        );
+      },
+    );
+  },
+);
+   await PcosDataService.uploadEntry(
+    age: age,
+    weight: weight,
+    cycle: cycle,
+    bin: widget.bin,   // passed from previous screen
+    probability: prob,
+    agreeWithResult: feedback?.agreeWithResult,
+    priorDiagnosis: feedback?.priorDiagnosis
+  
+
   );
 }
 
